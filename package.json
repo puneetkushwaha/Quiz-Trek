@@ -10,6 +10,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "firebase": "^11.3.1",

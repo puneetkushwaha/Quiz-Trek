@@ -3,12 +3,9 @@ import { motion } from "framer-motion";
 
 export default function LatestCurrentAffairs() {
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [pdfUrl, setPdfUrl] = useState("");
-  const [showPdf, setShowPdf] = useState(false);
 
   const handleSelectMonth = (event) => {
     setSelectedMonth(event.target.value);
-    setShowPdf(false);
   };
 
   const handleViewPdf = (date) => {
@@ -23,8 +20,8 @@ export default function LatestCurrentAffairs() {
       pdfPath = `/${selectedMonth.toLowerCase()}/${formattedDate}`;
     }
 
-    setPdfUrl(pdfPath);
-    setShowPdf(true);
+    // Open PDF in a new tab
+    window.open(pdfPath, "_blank", "noopener,noreferrer");
   };
 
   const generateDates = () => {
@@ -75,12 +72,14 @@ export default function LatestCurrentAffairs() {
               <motion.div 
                 className="bg-gray-800 hover:bg-gray-700 transition-all duration-300 p-6 rounded-lg shadow-lg transform hover:scale-105 hover:shadow-blue-500/50 text-center cursor-pointer"
                 whileHover={{ scale: 1.05 }}
-                onClick={() => handleViewPdf()}
               >
                 <h2 className="text-2xl font-semibold text-blue-300 mb-4">
                   December 2024 - Full Month Current Affairs
                 </h2>
-                <button className="text-blue-400 hover:text-blue-300 underline">
+                <button 
+                  className="text-blue-400 hover:text-blue-300 underline"
+                  onClick={() => handleViewPdf()}
+                >
                   📄 View December PDF
                 </button>
               </motion.div>
@@ -90,36 +89,19 @@ export default function LatestCurrentAffairs() {
                   key={date} 
                   className="bg-gray-800 hover:bg-gray-700 transition-all duration-300 p-6 rounded-lg shadow-lg transform hover:scale-105 hover:shadow-blue-500/50 cursor-pointer"
                   whileHover={{ scale: 1.05 }}
-                  onClick={() => handleViewPdf(date)}
                 >
                   <h2 className="text-2xl font-semibold text-blue-300">
                     {`${selectedMonth} ${date}, 2025`}
                   </h2>
-                  <button className="mt-4 text-blue-400 hover:text-blue-300 underline">
+                  <button 
+                    className="mt-4 text-blue-400 hover:text-blue-300 underline"
+                    onClick={() => handleViewPdf(date)}
+                  >
                     📄 View PDF
                   </button>
                 </motion.div>
               ))
             )}
-          </motion.div>
-        )}
-
-        {/* Show PDF Viewer */}
-        {showPdf && (
-          <motion.div 
-            className="mt-8 opacity-100 transition-opacity duration-500"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <h2 className="text-2xl font-semibold text-blue-300 mb-4">
-              📖 Viewing PDF
-            </h2>
-            <iframe
-              src={pdfUrl}
-              width="100%"
-              height="600px"
-              className="border-2 border-gray-500 rounded-lg"
-            />
           </motion.div>
         )}
       </motion.div>

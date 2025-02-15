@@ -17,15 +17,23 @@ export default function PdfViewer() {
     });
 
     return () => unsubscribe();
-  }, [router]);  // Added router to dependency array
+  }, [router]); // ✅ Added router to dependency array
 
   if (!user) return <p>Redirecting to login...</p>; // ✅ Show message while redirecting
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-bold mb-4">PDF Viewer</h1>
-      {/* Updated PDF source path */}
-      <embed src="/january/2025-01-01.pdf" width="80%" height="600px" type="application/pdf" />
+      
+      {/* Updated to open PDF in a new tab */}
+      <a 
+        href="/january/2025-01-01.pdf" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+      >
+        View PDF
+      </a>
     </div>
   );
 }
